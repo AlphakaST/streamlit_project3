@@ -1,6 +1,7 @@
 streamlit
 Pillow
-pandas
 requests
-numpy
 matplotlib
+pandas
+numpy
+Page

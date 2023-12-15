@@ -1,5 +1,5 @@
 import streamlit as st
-from st_pages import Page, show_pages
+from st_pages import Page, show_pages, add_page_title
 
 # 웹 브라우저 탭에 표시될 페이지의 제목
 st.set_page_config(
