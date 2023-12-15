@@ -1,6 +1,3 @@
-# 3. 어떤 요인이 산불에 영향을 줄까? sesstion_state '4_4)조별활동.py' 참고해서 수정
-# 수정 후에, Google Sheets 연계 / 맨 마지막 의견 쓰는 곳도 포함해서 수정
-
 import streamlit as st
 import requests
 import xml.etree.ElementTree as ET
@@ -11,14 +8,10 @@ import numpy as np
 import io
 import os
 
-# 폰트 설정
-nanum_font = [f for f in fm.findSystemFonts() if 'NanumGothic' in f]
-if not nanum_font:
-    raise Exception("NanumGothic 폰트가 시스템에 설치되어 있지 않습니다.")
-font_path = nanum_font[0]  # 첫 번째 매칭 폰트 사용
-
-font_prop = fm.FontProperties(fname=font_path)
-plt.rc('font', family=font_prop.get_name())
+# 글자체 특징
+path = os.getcwd() + '/NanumGothic.ttf'
+fontprop = fm.FontProperties(fname = path)
+plt.rc('font', family=fontprop.get_name())
 
 st.markdown("<h1 style='text-align: center;'>원인을 알아보고, 분석해 보자👍</h1>", unsafe_allow_html=True)
 st.subheader("")
@@ -113,14 +106,14 @@ if 'causes' in st.session_state and st.session_state['causes']:
                 
                 # 파이 차트의 각 레이블에 한글 폰트 적용
                 for text in texts:
-                    text.set_fontproperties(font_prop)
+                    text.set_fontproperties(fontprop)
 
-            plt.title(f'기간 {st_dt} - {ed_dt} 산불 발생 원인', fontproperties=font_prop)
+            plt.title(f'기간 {st_dt} - {ed_dt} 산불 발생 원인', fontproperties=fontprop)
             
             if graph_type != '파이 그래프':  # 파이 차트에는 x축 레이블과 회전이 필요 없음
-                plt.xlabel('발생 원인', fontproperties=font_prop)
-                plt.ylabel('원인별 개수', fontproperties=font_prop)
-                plt.xticks(rotation=45, ha='right', fontproperties=font_prop)
+                plt.xlabel('발생 원인', fontproperties=fontprop)
+                plt.ylabel('원인별 개수', fontproperties=fontprop)
+                plt.xticks(rotation=45, ha='right', fontproperties=fontprop)
             
             plt.tight_layout()
 
@@ -215,10 +208,10 @@ if 'startmonths' in st.session_state and st.session_state['startmonths']:
 
     plt.figure(figsize=(10, 6))
     plt.bar(months, counts, color=plt.cm.viridis(np.linspace(0, 1, len(months))))
-    plt.xlabel('발생 월', fontproperties=font_prop)
-    plt.ylabel('월별 발생 횟수', fontproperties=font_prop)
-    plt.title(f'기간 {st_dt} - {ed_dt} 산불 발생 월 분포', fontproperties=font_prop)
-    plt.xticks(months, rotation=45, ha='right', fontproperties=font_prop)
+    plt.xlabel('발생 월', fontproperties=fontprop)
+    plt.ylabel('월별 발생 횟수', fontproperties=fontprop)
+    plt.title(f'기간 {st_dt} - {ed_dt} 산불 발생 월 분포', fontproperties=fontprop)
+    plt.xticks(months, rotation=45, ha='right', fontproperties=fontprop)
     plt.tight_layout()
 
     # 그래프를 이미지로 저장하고 Streamlit에 표시
